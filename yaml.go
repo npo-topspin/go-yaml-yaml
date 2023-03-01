@@ -140,7 +140,7 @@ func (dec *Decoder) Decode(v interface{}) (err error) {
 // See the documentation for Unmarshal for details about the
 // conversion of YAML into a Go value.
 func (n *Node) Decode(v interface{}) (err error) {
-	return DecodeStrict(v, false)
+	return n.DecodeStrict(v, false)
 }
 
 func (n *Node) DecodeStrict(v interface{}, strict bool) (err error) {
