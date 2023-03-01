@@ -89,6 +89,10 @@ func Unmarshal(in []byte, out interface{}) (err error) {
 	return unmarshal(in, out, false)
 }
 
+func UnmarshalStrict(in []byte, out interface{}) (err error) {
+	return unmarshal(in, out, true)
+}
+
 // A Decoder reads and decodes YAML values from an input stream.
 type Decoder struct {
 	parser      *parser
@@ -161,6 +165,7 @@ func (n *Node) DecodeStrict(v interface{}, strict bool) (err error) {
 func unmarshal(in []byte, out interface{}, strict bool) (err error) {
 	defer handleErr(&err)
 	d := newDecoder()
+	d.knownFields = strict
 	p := newParser(in)
 	defer p.destroy()
 	node := p.parse()
